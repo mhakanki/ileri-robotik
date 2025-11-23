@@ -1,0 +1,29 @@
+// MEHMET HAKAN KIROĞLU
+// Deneyap Teknoloji Atölyeleri Eğitmeni ve 1. Dönem Zümre Başkanı
+// Bu Konuya ait kodlar aşağıda yer almaktadır.
+// Konuyla ilgili Fritzing Şeması ve Devrenin nasıl yapıldığına ve nasıl çalıştığına bakmak istiyorsanız Lütfen doğrudan videomuzu izleyin.
+// https://www.youtube.com/watch?v=JBig32GP-gI
+// Abone olup destek olursanız çok mutlu olurum
+
+int led = D12;
+int buton = D13;
+
+int butonbasilimi = 0;
+
+void setup() {
+  pinMode (led, OUTPUT);
+  pinMode (buton, INPUT);
+}
+
+void loop() {
+  butonbasilimi = digitalRead(buton);
+
+  if (butonbasilimi == 0) { 
+    digitalWrite(led, HIGH);
+  } 
+  else {
+    digitalWrite(led, LOW);
+  }
+
+  delay(100); 
+}
