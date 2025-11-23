@@ -1,0 +1,27 @@
+// MEHMET HAKAN KIROĞLU
+// Deneyap Teknoloji Atölyeleri Eğitmeni ve 1. Dönem Zümre Başkanı
+// Bu Konuya ait kodlar aşağıda yer almaktadır.
+// Konuyla ilgili Fritzing Şeması ve Devrenin nasıl yapıldığına ve nasıl çalıştığına bakmak istiyorsanız Lütfen doğrudan videomuzu izleyin.
+// https://www.youtube.com/watch?v=Ndcivr3ECw8
+// Abone olup destek olursanız çok mutlu olurum
+
+// Pinlerimizi tanımlayalım gençler
+int buton = D0;
+int buzzer = D1;
+
+void setup() {
+  //Buzzzer tıpkı led gibi bir çıkış birimi ancak buton bir giriş birimidir. Basılı olup olmadığını öğreneceğimiz için.
+  pinMode(buton, INPUT);
+  pinMode(buzzer, OUTPUT);
+}
+
+void loop() {
+
+  if (digitalRead(buton) == 1) {
+    digitalWrite(buzzer, HIGH);
+
+  } 
+  else {
+    digitalWrite(buzzer, LOW);
+  }
+}
