@@ -1,0 +1,49 @@
+// MEHMET HAKAN KIROĞLU
+// Deneyap Teknoloji Atölyeleri Eğitmeni ve 1. Dönem Zümre Başkanı
+// Bu Konuya ait kodlar aşağıda yer almaktadır.
+// Konuyla ilgili Fritzing Şeması ve Devrenin nasıl yapıldığına ve nasıl çalıştığına bakmak istiyorsanız Lütfen doğrudan videomuzu izleyin.
+// https://www.youtube.com/watch?v=DQbY3UtbbqA
+// Abone olup destek olursanız çok mutlu olurum
+
+int mavi1 = D0;
+int mavi2 = D1;
+int mavi3 = D4;
+
+int beyaz1 = D12;
+int beyaz2 = D13;
+int beyaz3 = D14;
+
+
+void setup () {
+
+  pinMode (mavi1, OUTPUT);
+  pinMode (mavi2, OUTPUT);
+  pinMode (mavi3, OUTPUT);
+
+  pinMode (beyaz1, OUTPUT);
+  pinMode (beyaz2, OUTPUT);
+  pinMode (beyaz3, OUTPUT);
+  
+}
+
+void loop () {
+
+  digitalWrite (mavi1, HIGH);
+  digitalWrite (mavi2, HIGH);
+  digitalWrite (mavi3, HIGH);
+  delay (50);
+  digitalWrite (mavi1, LOW);
+  digitalWrite (mavi2, LOW);
+  digitalWrite (mavi3, LOW);
+  delay (75);
+
+  digitalWrite (beyaz1, HIGH);
+  digitalWrite (beyaz2, HIGH);
+  digitalWrite (beyaz3, HIGH);
+  delay (50);
+  digitalWrite (beyaz1, LOW);
+  digitalWrite (beyaz2, LOW);
+  digitalWrite (beyaz3, LOW);
+  delay (75);
+
+}
