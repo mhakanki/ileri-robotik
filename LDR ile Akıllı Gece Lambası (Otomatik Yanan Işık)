@@ -1,0 +1,45 @@
+// MEHMET HAKAN KIROĞLU
+// Deneyap Teknoloji Atölyeleri Eğitmeni ve 1. Dönem Zümre Başkanı
+// Bu Konuya ait kodlar aşağıda yer almaktadır.
+// Konuyla ilgili Fritzing Şeması ve Devrenin nasıl yapıldığına ve nasıl çalıştığına bakmak istiyorsanız Lütfen doğrudan videomuzu izleyin.
+// https://www.youtube.com/watch?v=pwYp4vpwsiI
+// Abone olup destek olursanız çok mutlu olurum
+
+int ldr = A0;
+int led = D0;
+
+// Değişkenler
+int isikDegeri = 0; // Sensörden okuyacağımız ilk değer
+int esikDeger = 100; // Burası ortamdaki ışık eğer buradaki değerin altına düşer ise led yanar.
+,
+void setup() {
+
+  pinMode(led, OUTPUT);
+  pinMode(ldr, INPUT);
+  
+  Serial.begin (115200);
+}
+
+void loop() {
+  // (0 - 4095 arası) bir değer okuyabilir
+  isikDegeri = analogRead(ldr); 
+  
+  // Işık Değerini Ekrana yazdıralım.
+  Serial.print("ŞUANDA ORTAMDAKİ IŞIK DEĞERLİ : ");
+  Serial.println(isikDegeri);
+  Serial.println("--------------------------------");
+  
+  // Eğer ortamdaki ışık değeri bizim üst kısımda belirttiğimiz eşikDeğerine eşit veya küçük ise
+  // Hava karanlık demektir
+
+  if (isikDegeri < esikDeger) {
+    digitalWrite(led, HIGH);
+    Serial.print(" -> HAVA KARANLIK ");
+  } 
+  else {
+    digitalWrite(led, LOW);
+    Serial.print(" -> HAVA AYDINLIK ");
+  }
+  
+  delay(2000);
+}
