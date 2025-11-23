@@ -1,0 +1,79 @@
+// MEHMET HAKAN KIROĞLU
+// Deneyap Teknoloji Atölyeleri Eğitmeni ve 1. Dönem Zümre Başkanı
+// Bu Konuya ait kodlar aşağıda yer almaktadır.
+// Konuyla ilgili Fritzing Şeması ve Devrenin nasıl yapıldığına ve nasıl çalıştığına bakmak istiyorsanız Lütfen doğrudan videomuzu izleyin.
+// https://www.youtube.com/watch?v=GbCDf8FAkhY
+// Abone olup destek olursanız çok mutlu olurum
+
+// BENİM KULLANDIĞIM RGB ORTAK KATOT OLDUĞU İÇİN UZUN BACAĞI GND YE BAĞLADIM. RGB LED ÜZERİNDE ORTAK KATOT ANOT YAZMAZ.
+// ŞAYET UZUN BACAK GND 'DE İKEN DEVRENİZ ÇALIŞMIYOR İSE İSİZN RGB ORTAK ANOT'DUR VE UZUN BACAĞI 3.3 VOLTA BAĞLANAMIZ YETERLİ. GERİSİ AYNI
+
+int kirmizipin = D12;
+int yesilpin = D13;
+int mavipin = D14;
+
+void setup() {
+
+  pinMode(kirmizipin, OUTPUT);
+  pinMode(yesilpin, OUTPUT);
+  pinMode(mavipin, OUTPUT);
+}
+
+// İŞİMİZİ SONRASI İÇİN KOLAYLAŞTIRMAK AMACI İLE ÖNCE RENK PALETLERİNİ TANIMLAYALIM.
+// UNUTMAYIN HER RENK KENDİ İÇİNDE Kırmızı, Yeşil ve Mavi tonu BİRLEŞTİREREK ALIR VE DEĞERLER (0-255 arası) OLUR.
+
+void renkAyarla(int kirmizi, int yesil, int mavi) {
+  analogWrite(kirmizipin, kirmizi);
+  analogWrite(yesilpin, yesil);
+  analogWrite(mavipin, mavi);
+}
+
+void loop() {
+  
+// ÖNCE BİR ANA RENKLERİ GÖRELİM Mİ?
+
+  //KIRMIZI 255 DİĞER RENKLER 0 OLMASI LAZIM
+  renkAyarla(255, 0, 0);
+  delay(2000);
+
+  //YEŞİL 255 DİĞER RENKLER 0 OLMASI LAZIM
+  renkAyarla(0, 255, 0);
+  delay(2000);
+
+  //MAVİ 255 DİĞER RENKLER 0 OLMASI LAZIM
+  renkAyarla(0, 0, 255);
+  delay(2000);
+
+
+// BENCE BİRAZ DA ARA RENKLERİ GÖRELİM.
+  
+  // SARI RENGİNİ ELDE ETMEK İÇİN KIRMIZI VE YEŞİLİ KARIŞTIRMAMIZ LAZIM
+  renkAyarla(255, 255, 0);
+  delay(2000);
+
+  // MOR RENGİNİ ELDE ETMEK İÇİN KIRMIZI VE MAVİYİ KARIŞTIRMAMIZ LAZIM
+  renkAyarla(255, 0, 255);
+  delay(2000);
+
+  // TURKUAZ RENGİNİ ELDE ETMEK İÇİN YEŞİL VE MAVİYİ KARIŞTIRMAMIZ LAZIM
+  renkAyarla(0, 255, 255);
+  delay(2000);
+
+  // BEYAZ RENGİNİ ELDE ETMEK İÇİN TÜM RENKLERİN 255 OLMASI GEREKMEKTEDİR. BEYAZ TÜM RENKLERİN VARLIĞIDIR. 
+  renkAyarla(255, 255, 255);
+  delay(2000);
+
+  //BENCE İŞİ BİRAZ ABARTIP DİSCO HAVASI KATALIM MI?
+  // NORMAL ŞARTLARDA i++ DEMEK BİLİYORSUNUZ SAYISIYI BİR ARTIRIR. AMA ŞİMDİ 0 DAN 255 E KADAR BİR BİR ARTMASINI İSTEMİYORUM.
+  // BU NEDENLE i++ YAZMAK YERİNE i+=5 YAZACAĞIM. YANİ 0 5 10 15 20 ....... 255 ŞEKLİNDE İLERLEYECEK. TERCİH BURADA TAMAMEN SİZİN
+
+ 
+  for(int i=0; i<255; i+=5){
+    renkAyarla(random(0,255), random(0,255), random(0,255));
+    delay(100);
+}
+  
+  // DÖNGÜ BİTİNE IŞIĞI KAPAT. BAŞA DÖNECEK MECBUR HEMEN DÖNMESİN DİYE UZUN BİR SÜRE EKLEDİM.
+  renkAyarla(0, 0, 0);
+  delay(60000);
+}
