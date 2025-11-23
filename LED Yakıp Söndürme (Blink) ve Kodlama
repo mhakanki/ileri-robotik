@@ -1,6 +1,9 @@
 // MEHMET HAKAN KIROĞLU
-// https://www.youtube.com/@mhakanki
-// 1. Dönem Zümre Başkanı Deneyap Teknoloji Atölyeleri Eğitmeni
+// Deneyap Teknoloji Atölyeleri Eğitmeni ve 1. Dönem Zümre Başkanı
+// Bu Konuya ait kodlar aşağıda yer almaktadır.
+// Konuyla ilgili Fritzing Şeması ve Devrenin nasıl yapıldığına ve nasıl çalıştığına bakmak istiyorsanız Lütfen doğrudan videomuzu izleyin.
+// https://www.youtube.com/watch?v=Oz_57clPbP4
+// Abone olup destek olursanız çok mutlu olurum
 
 int led = D0;
 
