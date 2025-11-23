@@ -1,0 +1,59 @@
+// MEHMET HAKAN KIROĞLU
+// Deneyap Teknoloji Atölyeleri Eğitmeni ve 1. Dönem Zümre Başkanı
+// Bu Konuya ait kodlar aşağıda yer almaktadır.
+// Konuyla ilgili Fritzing Şeması ve Devrenin nasıl yapıldığına ve nasıl çalıştığına bakmak istiyorsanız Lütfen doğrudan videomuzu izleyin.
+// https://www.youtube.com/watch?v=WDnnIynrt7A
+// Abone olup destek olursanız çok mutlu olurum
+
+int sagkirmizi = D0;
+int sagsari = D1;
+int sagyesil = D4;
+
+int solkirmizi = D12;
+int solsari = D13;
+int solyesil = D14;
+
+
+void setup () {
+
+  pinMode (sagkirmizi, OUTPUT);
+  pinMode (sagsari, OUTPUT);
+  pinMode (sagyesil, OUTPUT);
+
+  pinMode (solkirmizi, OUTPUT);
+  pinMode (solsari, OUTPUT);
+  pinMode (solyesil, OUTPUT);
+ 
+}
+
+void loop () {
+
+  digitalWrite (sagkirmizi, HIGH);
+  digitalWrite (solyesil, HIGH);
+  delay (5000);
+  digitalWrite (sagkirmizi, LOW);
+  digitalWrite (solyesil, LOW);
+  delay (1000);
+
+  digitalWrite (sagsari, HIGH);
+  digitalWrite (solsari, HIGH);
+  delay (1000);
+  digitalWrite (sagsari, LOW);
+  digitalWrite (solsari, LOW);
+  delay (1000);
+
+  digitalWrite (sagyesil, HIGH);
+  digitalWrite (solkirmizi, HIGH);
+  delay (5000);
+  digitalWrite (sagyesil, LOW);
+  digitalWrite (solkirmizi, LOW);
+  delay (1000);
+
+  digitalWrite (sagsari, HIGH);
+  digitalWrite (solsari, HIGH);
+  delay (1000);
+  digitalWrite (sagsari, LOW);
+  digitalWrite (solsari, LOW);
+  delay (1000);
+  
+}
