@@ -1,0 +1,37 @@
+// MEHMET HAKAN KIROĞLU
+// Deneyap Teknoloji Atölyeleri Eğitmeni ve 1. Dönem Zümre Başkanı
+// Bu Konuya ait kodlar aşağıda yer almaktadır.
+// Konuyla ilgili Fritzing Şeması ve Devrenin nasıl yapıldığına ve nasıl çalıştığına bakmak istiyorsanız Lütfen doğrudan videomuzu izleyin.
+// https://www.youtube.com/watch?v=V1H2F-e570Q
+// Abone olup destek olursanız çok mutlu olurum
+
+// Öncelikle değişken sayısı çok olduğu için dizi metodu ile karışık pinleri sırası ile tanımlıyoruz.
+int ledler[] = {D0, D1, D4, D8, D9, D12, D13, D14, D15};
+
+// Toplam Kullanacağımız Led Sayısı belirtelim
+int ledSayisi = 9;
+
+void setup() {
+// Eğer üst kısımdaki gibi toplu değişken oluşturmasaydık tek tek ledleri OUTPUT yapmamız gerekiyordu.
+  for (int i = 0; i < ledSayisi; i++) {
+    pinMode(ledler[i], OUTPUT);
+  }
+}
+
+void loop() {
+  
+  // ÖNCELİKLE KARA ŞİMŞEK DEVREMİZ İLERİ DOĞRU GİTSİN
+  for (int i = 0; i < ledSayisi; i++) {
+    digitalWrite(ledler[i], HIGH);
+    delay(30);
+    digitalWrite(ledler[i], LOW);
+  }
+
+  // ŞİMDİDE GERİ DOĞRU GİTSİN
+  for (int i = ledSayisi - 1; i > 0; i--) {
+    digitalWrite(ledler[i], HIGH);
+    delay(30);
+    digitalWrite(ledler[i], LOW);
+  }
+
+}
