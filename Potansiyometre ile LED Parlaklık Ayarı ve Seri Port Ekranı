@@ -1,0 +1,39 @@
+// MEHMET HAKAN KIROĞLU
+// Deneyap Teknoloji Atölyeleri Eğitmeni ve 1. Dönem Zümre Başkanı
+// Bu Konuya ait kodlar aşağıda yer almaktadır.
+// Konuyla ilgili Fritzing Şeması ve Devrenin nasıl yapıldığına ve nasıl çalıştığına bakmak istiyorsanız Lütfen doğrudan videomuzu izleyin.
+// https://www.youtube.com/watch?v=1coNuEvMBEg
+// Abone olup destek olursanız çok mutlu olurum
+
+// Öncelikle Pin bağlantılarını tanımlayalım
+int led = D0;
+int potansiyometre = A0;
+
+// Şimdide değişkenlerimizi tanımlayalım
+int potdegeri = 0;     // Potansiyometrenin veri kapasitesi (0-4095)
+int ledparlakligi = 0; // Ledin veri kapasitesi ise (0-255)
+
+void setup() {
+
+  pinMode(led, OUTPUT);
+  pinMode(potansiyometre, INPUT);
+
+  // Evet Ledimizin parkalığını gözlerimizle göreceğiz ancak sayısal değerleride görmek istiyorum
+  Serial.begin(115200);
+}
+
+void loop() {
+
+  potdegeri = analogRead(potansiyometre);
+
+  ledparlakligi = map(potdegeri, 0, 4095, 0, 255);
+
+  analogWrite(led, ledparlakligi);
+
+  Serial.print("Potansiyometreden Okunan Değer: ");
+  Serial.print(potdegeri);
+  Serial.print("  --->  Dönüştükten Sonra LED'e Giden Değer: ");
+  Serial.println(ledparlakligi);
+
+  delay(100);
+}
