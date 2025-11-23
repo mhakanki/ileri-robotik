@@ -1,0 +1,47 @@
+// MEHMET HAKAN KIROĞLU
+// Deneyap Teknoloji Atölyeleri Eğitmeni ve 1. Dönem Zümre Başkanı
+// Bu Konuya ait kodlar aşağıda yer almaktadır.
+// Konuyla ilgili Fritzing Şeması ve Devrenin nasıl yapıldığına ve nasıl çalıştığına bakmak istiyorsanız Lütfen doğrudan videomuzu izleyin.
+// https://www.youtube.com/watch?v=4up5UQvmdZQ
+// Abone olup destek olursanız çok mutlu olurum
+
+int trigPin = D0; // Yarasa misali ses dalgası gönderir.
+int echoPin = D1; // Engele çarpıp geri dönen sesi yarasanın algılayıp önündeki engeli tespit etmesi gibi düşünün.
+
+// DEĞİŞKENLER
+long zaman; //int yazmak yerine long kullanmamızın nedeni bizim burada mikro saniye cinsinden değerler yazmamız. yani çok büyük değerler.
+int mesafe; 
+
+void setup() {
+  pinMode(trigPin, OUTPUT); // Çünkü sadece ses dalgası gönderiyor.
+  pinMode(echoPin, INPUT);  // Çünkü geri gelen sesi bilgi olarak alıyor.
+  
+  Serial.begin(115200); // Mesafe sonuçlarını görebilmek için seri ekran başlattım.
+}
+
+void loop() {
+  // ses dalgasını göndermeyelim. 2 mikro saniye kapalı kalsın
+  digitalWrite(trigPin, 0);
+  delayMicroseconds(2);
+  
+  // Ses Dalgasını göndermeye başlayalım. 10 mikro saniye çalışsın. ve sonra tekrar kapansın.
+  digitalWrite(trigPin, 1);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, 0);
+  
+  // Gidiş Dönüş Süresini Ölçmeye başlayalım. Çünkü 10 saniyede ses dalgası trigden çıkıp echo ya geri döndü ise
+  // dediğim gidiş dönüş hesabı yapmamız lazım.
+  zaman = pulseIn(echoPin, 1);
+  
+  // Fizik açısından Yol = Hız x Zaman
+  // Ses hızı (340 m/s) olup bunu formüle dökülünce katsayı 0.034 olur.
+  // Gidiş-Dönüş olduğu için 2'ye bölüyoruz.
+  mesafe = zaman * 0.034 / 2;
+  
+  // SONUÇLARI ARTIK EKRANA VERELİM.
+  Serial.print("Engele Uzaklık : ");
+  Serial.print(mesafe);
+  Serial.println(" cm");
+ 
+  delay(1000);
+}
