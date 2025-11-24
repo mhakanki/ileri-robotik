@@ -1,0 +1,71 @@
+// MEHMET HAKAN KIROĞLU
+// Deneyap Teknoloji Atölyeleri Eğitmeni ve 1. Dönem Zümre Başkanı
+// Bu Konuya ait kodlar aşağıda yer almaktadır.
+// Konuyla ilgili Fritzing Şeması ve Devrenin nasıl yapıldığına ve nasıl çalıştığına bakmak istiyorsanız Lütfen doğrudan videomuzu izleyin.
+// https://www.youtube.com/watch?v=uBw3Ke0fVwU
+// Abone olup destek olursanız çok mutlu olurum
+
+
+int trigPin = D0;
+int echoPin = D1;
+
+// 4 led içinde değişken tanımlamasını ayrı ayrı yapmak yerşne daha önce öğrendiğimiz gibi tek satırda hallediyoruz
+int ledler[] = {D12, D13, D14, D15};
+
+long sure;
+int mesafe;
+bool lambaAcik = false; // program başladığı anda ledin yanık olup olmadığını kontrol etmemiz lazım. bool sayı değil sadece true veya false dir.
+
+void setup() {
+  pinMode(trigPin, OUTPUT); // Trigpin ses dalgası gönderdiği için çıkış birimi
+  pinMode(echoPin, INPUT); // Echopin geri dönen ses dalgasını algılayıp bize bildirdiği için giriş birimi
+  
+  // For döngüsüyle tüm LED pinlerini ÇIKIŞ yap
+  for (int i = 0; i < 4; i++) {
+    pinMode(ledler[i], OUTPUT);
+  }
+  
+  Serial.begin(115200);
+}
+
+void loop() {
+  // ÖNCELİKLE MESAFEYİ ÖLÇELİM
+  digitalWrite(trigPin, 0);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, 1);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, 0);
+  
+  sure = pulseIn(echoPin, 1);
+  mesafe = sure * 0.034 / 2;
+  
+  Serial.print("Mesafe: ");
+  Serial.println(mesafe);
+
+  // BİZE KARAR MEKANİZMASI LAZIM
+  // Eğer mesafe sensörüne biri 10 cm yaklaşırsa ledler otomatik bir şekilde yanacak
+  if (mesafe > 0 && mesafe < 10) {
+    for (int i = 0; i < 4; i++) {
+      digitalWrite(ledler[i], HIGH);
+    }
+    lambaAcik = true; // Hareket algıladığımız için lambalar yandı
+  }
+  // Eğer mesafe 10 cm'den FAZLA ise yani kimse yok ise veya uzaklaştı ise
+  else {
+    // BURASI ÖNEMLİ: Sadece lamba zaten açıksa bekleme yap!
+    // Eğer lamba zaten sönükse bekleme yapma, hızlı çalış.
+    if (lambaAcik == true) {
+      Serial.println("Kişi Ayrıldı lambalar 5 saniye sonra sönecek.");
+      delay(5000); // 5 Saniye Bekle
+      
+      // Süre doldu, hepsini söndür
+      for (int i = 0; i < 4; i++) {
+        digitalWrite(ledler[i], LOW);
+      }
+      lambaAcik = false; // Hareket algılanmadığı için lambalar sönük
+      Serial.println("Kimse yok, bütün lambalar kapatıldı.");
+    }
+  }
+  
+  delay(1000); // Ölçüm sıklığı
+}
