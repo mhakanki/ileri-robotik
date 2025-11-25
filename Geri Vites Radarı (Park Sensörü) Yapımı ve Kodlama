@@ -1,0 +1,91 @@
+// MEHMET HAKAN KIROĞLU
+// Deneyap Teknoloji Atölyeleri Eğitmeni ve 1. Dönem Zümre Başkanı
+// Bu Konuya ait kodlar aşağıda yer almaktadır.
+// Konuyla ilgili Fritzing Şeması ve Devrenin nasıl yapıldığına ve nasıl çalıştığına bakmak istiyorsanız Lütfen doğrudan videomuzu izleyin.
+// https://youtu.be/8g2iuoH8JHg
+// Abone olup destek olursanız çok mutlu olurum
+
+// PİNLERİ TANIMLAYARAK İŞE BAŞLAYALIM
+int trigPin = D0;
+int echoPin = D1;
+
+int yesilLed = D12; //Daha mesafe var anlamında
+int sariLed = D13; //Çarpmaya az kaldı anlamında
+int kirmiziLed = D14; //Her an çarpabilirsin anlamında
+int buzzer = D15;
+
+// DEĞİŞKENLERİ TANIMLAYARAK DEVAM EDELİM.
+long sure;
+int mesafe;
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  
+  pinMode(yesilLed, OUTPUT);
+  pinMode(sariLed, OUTPUT);
+  pinMode(kirmiziLed, OUTPUT);
+  pinMode(buzzer, OUTPUT);
+  
+  Serial.begin(115200);
+}
+
+void loop() {
+  // MESAFE SENSÖRÜNÜN KLASİK ÇALIŞAM KODU
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  sure = pulseIn(echoPin, HIGH);
+  mesafe = sure * 0.034 / 2;
+  
+  Serial.print("Çarpacağınız Engele Olan Mesafe: ");
+  Serial.print(mesafe);
+  Serial.println(" cm");
+
+ 
+  // ÇOK YAKIN (TEHLİKE) ÇARPMAYA AZ KALDI - 10 cm altı diyelim
+  // Kırmızı yanar, buzzer ÇOK HIZLI öter.
+  if (mesafe > 0 && mesafe < 10) {
+    digitalWrite(kirmiziLed, HIGH);
+    digitalWrite(sariLed, LOW);
+    digitalWrite(yesilLed, LOW);
+    
+    // Hızlı Dıt-Dıt için 50 milisaniye bence yeterli
+    digitalWrite(buzzer, HIGH); 
+    delay(50); 
+    digitalWrite(buzzer, LOW);  
+    delay(50);
+  }
+
+    
+  // ORTA yakınlık (DİKKAT) - 10 ile 25 cm arası arası diyelim
+  // Sarı yanar, buzzer ORTA HIZDA öter.
+  else if (mesafe >= 10 && mesafe < 25) {
+    digitalWrite(kirmiziLed, LOW);
+    digitalWrite(sariLed, HIGH);
+    digitalWrite(yesilLed, LOW);
+    
+    // Orta Dıt-Dıt (200ms)
+    digitalWrite(buzzer, HIGH); 
+    delay(200); // Ses süresi
+    digitalWrite(buzzer, LOW);  
+    delay(200); // Bekleme süresi
+  }
+
+  // UZAK (GÜVENLİ) - 25 cm üstü diyelim
+  // Yeşil yanar, buzzer ÇOK YAVAŞ öter.
+  else {
+    digitalWrite(kirmiziLed, LOW);
+    digitalWrite(sariLed, LOW);
+    digitalWrite(yesilLed, HIGH);
+    
+    // Yavaş bir şekilde Dıt-Dıt (1000 milisaniye)
+    digitalWrite(buzzer, HIGH); 
+    delay(1000); 
+    digitalWrite(buzzer, LOW);  
+    delay(1000); 
+  }
+}
